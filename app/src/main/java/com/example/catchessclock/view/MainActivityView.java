@@ -7,4 +7,5 @@ public interface MainActivityView extends MvpView {
 
     public void initPlayerTime (int time);
 
+    public void loadClockFragm(int time);
 }
