@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.catchessclock.R;
+import com.example.catchessclock.model.TimeControl;
 import com.example.catchessclock.presenter.MainActivityPresenter;
 
 import java.util.ArrayList;
@@ -44,10 +45,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainActivityVi
     }
 
     @Override
-    public void loadClockFragm(int time) {
-        List<Integer> list = new ArrayList<>();
-        list.add(time);
-        ClockFragment fragment = new ClockFragment(list);
+    public void loadClockFragm(TimeControl timeControl) {
+
+        ClockFragment fragment = new ClockFragment(timeControl);
 
         Runnable  mPendingRunnable = () -> {
             // update the main content by replacing fragments

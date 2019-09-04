@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.example.catchessclock.R;
 import com.example.catchessclock.entities.ChessClock;
+import com.example.catchessclock.model.TimeControl;
 import com.example.catchessclock.presenter.ClockFragmentPresenter;
 
 import java.util.List;
@@ -31,9 +32,10 @@ public class ClockFragment extends MvpAppCompatFragment implements ClockFragment
 
 
 
-    public ClockFragment(List<Integer> gameTime) {
-        mGameTime = gameTime;
+    public ClockFragment(TimeControl timeControl) {
+        setClockInitTimer(timeControl);
     };
+
 
     @Nullable
     @Override
@@ -41,7 +43,7 @@ public class ClockFragment extends MvpAppCompatFragment implements ClockFragment
 
         View rootView = inflater.inflate(R.layout.clock_layout,container,false);
         mChronometer = rootView.findViewById(R.id.time_box);
-        mChronometer.setInitState(100);
+//        mChronometer.setInitState(100);
 //        mChronometer.start();
 
         rootView.setOnClickListener(view -> {
@@ -69,5 +71,10 @@ public class ClockFragment extends MvpAppCompatFragment implements ClockFragment
     @Override
     public void clockChange() {
 
+    }
+
+    @Override
+    public void setClockInitTimer(TimeControl timeControl) {
+        mChronometer.setInitState(timeControl);
     }
 }

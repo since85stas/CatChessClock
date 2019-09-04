@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.View;
 
 
+import com.example.catchessclock.model.TimeControl;
 import com.example.catchessclock.view.MainActivityView;
 
 import moxy.InjectViewState;
@@ -21,7 +22,7 @@ public class MainActivityPresenter  extends MvpPresenter<MainActivityView> {
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
-        getViewState().loadClockFragm(10);
+        getViewState().loadClockFragm(getTimeControl());
         Log.d(TAG, "onFirstViewAttach: ");
     }
 
@@ -30,5 +31,10 @@ public class MainActivityPresenter  extends MvpPresenter<MainActivityView> {
         super.attachView(view);
 //        getViewState().initPlayerTime(10);
         Log.d(TAG, "attachView: init");
+    }
+
+    private TimeControl getTimeControl() {
+
+        return new TimeControl(5,1,TimeControl.TYPE_FISHER);
     }
 }

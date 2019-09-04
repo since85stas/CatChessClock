@@ -1,11 +1,13 @@
 package com.example.catchessclock.view;
 
 
+import com.example.catchessclock.model.TimeControl;
+
 import moxy.MvpView;
 
 public interface MainActivityView extends MvpView {
 
     public void initPlayerTime (int time);
 
-    public void loadClockFragm(int time);
+    public void loadClockFragm(TimeControl control);
 }
