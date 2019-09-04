@@ -17,4 +17,12 @@ public class ClockFragmentPresenter extends MvpPresenter<ClockFragmentView> {
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
     }
+
+    public void startTimer() {
+        getViewState().startTimer();
+    }
+
+    public void pauseTimer() {
+        getViewState().pauseTimer();
+    }
 }

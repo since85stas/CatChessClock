@@ -29,14 +29,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainActivityVi
     private Handler mHandler;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mHandler = new Handler();
-
 
     }
 
@@ -59,5 +57,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainActivityVi
             fragmentTransaction.replace(R.id.main_container, fragment);
             fragmentTransaction.commitAllowingStateLoss();
         };
+
+        // If mPendingRunnable is not null, then add to the message queue
+        if (mPendingRunnable != null) {
+            mHandler.post(mPendingRunnable);
+        }
     }
 }
