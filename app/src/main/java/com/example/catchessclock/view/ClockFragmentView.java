@@ -14,4 +14,6 @@ public interface ClockFragmentView extends MvpView {
 
     public void setClockInitTimer(TimeControl timeControl);
 
+    void clockIsPressed();
+
 }

@@ -15,7 +15,7 @@ public class ChessClock extends Chronometer {
 
     public boolean mIsRunning;
 
-    TimeControl mTimeControl;
+    int mIncrType;
 
     long mStartTime;
 
@@ -40,12 +40,14 @@ public class ChessClock extends Chronometer {
     public void setInitState(TimeControl timeControl) {
         this.mTimeLimit = timeControl.timeLimit * 60 * 1000;
         mIncrement = timeControl.increment * 1000;
+        mIncrType  = timeControl.incrementType;
         setCountDown(true);
-
+        mStartTime = SystemClock.elapsedRealtime() + mTimeLimit;
+        setBase(mStartTime);
     }
 
     public void startTimer() {
-        addIncrement();
+
         mIsRunning = true;
         mStartTime = SystemClock.elapsedRealtime() + mTimeLimit;
         setBase(mStartTime);
@@ -55,7 +57,7 @@ public class ChessClock extends Chronometer {
 
     public void addIncrement() {
         if (mIncrement != 0) {
-            switch (mTimeControl.incrementType) {
+            switch (mIncrType) {
                 case TimeControl.TYPE_FISHER:
                     mTimeLimit += mIncrement;
                     break;
@@ -72,17 +74,15 @@ public class ChessClock extends Chronometer {
     }
 
     public void pauseTimer() {
+        addIncrement();
         mIsRunning = false;
         long time = SystemClock.elapsedRealtime();
-//        setBase(SystemClock.elapsedRealtime());
         stop();
     }
 
     private void resetTimer() {
 
     }
-
-
 
     private void initTickListner() {
         setOnChronometerTickListener(listner -> {

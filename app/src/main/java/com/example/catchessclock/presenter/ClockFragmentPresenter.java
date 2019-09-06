@@ -24,5 +24,9 @@ public class ClockFragmentPresenter extends MvpPresenter<ClockFragmentView> {
 
     public void pauseTimer() {
         getViewState().pauseTimer();
+
     }
+
+
+
 }

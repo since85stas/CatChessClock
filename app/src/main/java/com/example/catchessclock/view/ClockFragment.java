@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.example.catchessclock.R;
 import com.example.catchessclock.entities.ChessClock;
+import com.example.catchessclock.interfaces.ChessClicked;
 import com.example.catchessclock.model.TimeControl;
 import com.example.catchessclock.presenter.ClockFragmentPresenter;
 
@@ -21,7 +22,9 @@ import butterknife.BindView;
 import moxy.MvpAppCompatFragment;
 import moxy.presenter.InjectPresenter;
 
-public class ClockFragment extends MvpAppCompatFragment implements ClockFragmentView{
+public class ClockFragment extends MvpAppCompatFragment implements ClockFragmentView {
+
+    public String mTag;
 
     @InjectPresenter
     ClockFragmentPresenter mClockFragmentPresenter;
@@ -30,33 +33,59 @@ public class ClockFragment extends MvpAppCompatFragment implements ClockFragment
 
     ChessClock mChronometer;
 
+    TimeControl mTimeControl;
+
+    String mName;
+
+    View.OnClickListener mClickListener;
+
+    ChessClicked clickedInterface;
+
+    public ClockFragment(TimeControl timeControl, String tag) {
+        mTimeControl = timeControl;
+        mTag = tag;
+
+    }
 
 
-    public ClockFragment(TimeControl timeControl) {
-        setClockInitTimer(timeControl);
-    };
+    public void setInterface(ChessClicked clickedInterface) {
+        this.clickedInterface = clickedInterface;
+    }
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.clock_layout,container,false);
+        View rootView = inflater.inflate(R.layout.clock_layout, container, false);
         mChronometer = rootView.findViewById(R.id.time_box);
-//        mChronometer.setInitState(100);
-//        mChronometer.start();
+        setClockInitTimer(mTimeControl);
+        setInterface(clickedInterface);
 
-        rootView.setOnClickListener(view -> {
-            if (mChronometer.mIsRunning) {
-                mClockFragmentPresenter.pauseTimer();
-            } else {
-                mClockFragmentPresenter.startTimer();
+        if(mTag == MainActivity.FRAG_TAG1) {
+            startTimer();
+        }
+
+        mClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (mChronometer.mIsRunning ) {
+                    clickedInterface.chessClockIsClicked(mTag);
+//                    mClockFragmentPresenter.pauseTimer();
+                } else {
+//                    mClockFragmentPresenter.startTimer();
+                }
             }
-        });
-
+        };
+        rootView.setOnClickListener(mClickListener);
         return rootView;
     }
 
+    @Override
+    public void clockIsPressed() {
+
+    }
 
     @Override
     public void startTimer() {

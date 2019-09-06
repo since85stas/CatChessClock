@@ -7,7 +7,10 @@ import moxy.MvpView;
 
 public interface MainActivityView extends MvpView {
 
-    public void initPlayerTime (int time);
+    void initPlayerTime (int time);
 
-    public void loadClockFragm(TimeControl control);
+    void initMainActivity(TimeControl player1, TimeControl player2);
+
+
+//    public void loadClockFragm(TimeControl control);
 }
