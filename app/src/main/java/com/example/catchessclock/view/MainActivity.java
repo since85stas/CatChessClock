@@ -1,9 +1,12 @@
 package com.example.catchessclock.view;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentTransaction;
@@ -18,6 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import moxy.InjectViewState;
 import moxy.MvpAppCompatActivity;
 import moxy.presenter.InjectPresenter;
@@ -37,6 +41,23 @@ public class MainActivity extends MvpAppCompatActivity implements MainActivityVi
 
     ClockFragment mClockFragment1;
     ClockFragment mClockFragment2;
+
+    @OnClick ({R.id.settings_button, R.id.pause_button, R.id.reset_button})
+    void onButtonClick (View view) {
+        switch (view.getId()) {
+            case R.id.settings_button:
+                Intent openInt = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(openInt);
+                break;
+            case R.id.pause_button:
+                pauseButtonClick();
+                break;
+            case R.id.reset_button:
+                Intent resetInt = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(resetInt);
+                break;
+        }
+    }
 
 
     @Override
@@ -95,15 +116,40 @@ public class MainActivity extends MvpAppCompatActivity implements MainActivityVi
         Log.d(TAG, "chessClockIsClicked: " + fragmTag);
         switch (fragmTag){
             case FRAG_TAG1:
-                mClockFragment1.mClockFragmentPresenter.pauseTimer();
+                mClockFragment1.mClockFragmentPresenter.nextTurn();
                 mClockFragment2.mClockFragmentPresenter.startTimer();
                 break;
 
             case FRAG_TAG2:
-                mClockFragment2.mClockFragmentPresenter.pauseTimer();
+                mClockFragment2.mClockFragmentPresenter.nextTurn();
                 mClockFragment1.mClockFragmentPresenter.startTimer();
                 break;
         }
     }
+
+
+    @Override
+    public void firstChessClockIsClicked(String fragmTag) {
+        switch (fragmTag){
+            case FRAG_TAG1:
+                mClockFragment1.mClockFragmentPresenter.startTimer();
+                break;
+
+            case FRAG_TAG2:
+                mClockFragment2.mClockFragmentPresenter.startTimer();
+                break;
+        }
+        mClockFragment1.setGameClickListn();
+        mClockFragment2.setGameClickListn();
+    }
+
+    @Override
+    public void pauseButtonClick() {
+        mClockFragment1.mClockFragmentPresenter.pauseTimer();
+        mClockFragment1.setInitClickListn();
+        mClockFragment2.mClockFragmentPresenter.pauseTimer();
+        mClockFragment2.setInitClickListn();
+    }
+
 
 }

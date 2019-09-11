@@ -27,6 +27,9 @@ public class ClockFragmentPresenter extends MvpPresenter<ClockFragmentView> {
 
     }
 
+    public void nextTurn() {
+        getViewState().nextTurn();
+    }
 
 
 }

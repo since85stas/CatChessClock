@@ -11,6 +11,8 @@ public interface MainActivityView extends MvpView {
 
     void initMainActivity(TimeControl player1, TimeControl player2);
 
+    void pauseButtonClick();
+
 
 //    public void loadClockFragm(TimeControl control);
 }

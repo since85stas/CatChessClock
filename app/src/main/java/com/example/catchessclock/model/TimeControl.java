@@ -7,7 +7,7 @@ public class TimeControl {
     public static final int TYPE_DELAY  = -3;
 
     // time limit in minutes
-    public int timeLimit;
+    public float timeLimit;
 
     // increment in seconds
     public int increment ;
@@ -18,17 +18,21 @@ public class TimeControl {
     // turn limit
     public int turnLimit;
 
-    public TimeControl ( int timeLimit, int increment, int incrementType) {
+    public String title;
+
+    public TimeControl ( float timeLimit, int increment, int incrementType, String title) {
         this.timeLimit = timeLimit;
         this.increment = increment;
         this.incrementType = incrementType;
         this.turnLimit = 0;
+        this.title = title;
     }
 
-    public TimeControl ( int timeLimit, int increment, int incrementType, int turnLimit) {
+    public TimeControl ( float timeLimit, int increment, int incrementType, int turnLimit, String title) {
         this.timeLimit = timeLimit;
         this.increment = increment;
         this.incrementType = incrementType;
         this.turnLimit = turnLimit;
+        this.title = title;
     }
 }

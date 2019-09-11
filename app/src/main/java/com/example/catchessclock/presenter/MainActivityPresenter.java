@@ -23,20 +23,18 @@ public class MainActivityPresenter  extends MvpPresenter<MainActivityView> {
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
         getViewState().initMainActivity(getTimeControl(),getTimeControl());
-//        getViewState().loadClockFragm(getTimeControl());
         Log.d(TAG, "onFirstViewAttach: ");
     }
 
     @Override
     public void attachView(MainActivityView view) {
         super.attachView(view);
-//        getViewState().initPlayerTime(10);
         Log.d(TAG, "attachView: init");
     }
 
     private TimeControl getTimeControl() {
 
-        return new TimeControl(5,1,TimeControl.TYPE_FISHER);
+        return new TimeControl(5,1,TimeControl.TYPE_FISHER, "qq");
     }
 
 

@@ -16,4 +16,6 @@ public interface ClockFragmentView extends MvpView {
 
     void clockIsPressed();
 
+    void nextTurn();
+
 }

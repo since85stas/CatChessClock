@@ -1,11 +1,9 @@
 package com.example.catchessclock.view;
 
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Chronometer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,9 +14,6 @@ import com.example.catchessclock.interfaces.ChessClicked;
 import com.example.catchessclock.model.TimeControl;
 import com.example.catchessclock.presenter.ClockFragmentPresenter;
 
-import java.util.List;
-
-import butterknife.BindView;
 import moxy.MvpAppCompatFragment;
 import moxy.presenter.InjectPresenter;
 
@@ -29,8 +24,6 @@ public class ClockFragment extends MvpAppCompatFragment implements ClockFragment
     @InjectPresenter
     ClockFragmentPresenter mClockFragmentPresenter;
 
-    List<Integer> mGameTime;
-
     ChessClock mChronometer;
 
     TimeControl mTimeControl;
@@ -39,7 +32,11 @@ public class ClockFragment extends MvpAppCompatFragment implements ClockFragment
 
     View.OnClickListener mClickListener;
 
+    View.OnClickListener mFirstClickListner;
+
     ChessClicked clickedInterface;
+
+    View mRootView;
 
     public ClockFragment(TimeControl timeControl, String tag) {
         mTimeControl = timeControl;
@@ -57,14 +54,10 @@ public class ClockFragment extends MvpAppCompatFragment implements ClockFragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.clock_layout, container, false);
-        mChronometer = rootView.findViewById(R.id.time_box);
+        mRootView = inflater.inflate(R.layout.clock_layout, container, false);
+        mChronometer = mRootView.findViewById(R.id.time_box);
         setClockInitTimer(mTimeControl);
         setInterface(clickedInterface);
-
-        if(mTag == MainActivity.FRAG_TAG1) {
-            startTimer();
-        }
 
         mClickListener = new View.OnClickListener() {
             @Override
@@ -73,13 +66,19 @@ public class ClockFragment extends MvpAppCompatFragment implements ClockFragment
                 if (mChronometer.mIsRunning ) {
                     clickedInterface.chessClockIsClicked(mTag);
 //                    mClockFragmentPresenter.pauseTimer();
-                } else {
-//                    mClockFragmentPresenter.startTimer();
                 }
             }
         };
-        rootView.setOnClickListener(mClickListener);
-        return rootView;
+
+        mFirstClickListner = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickedInterface.firstChessClockIsClicked(mTag);
+            }
+        };
+
+        setOnClickListn(mFirstClickListner);
+        return mRootView;
     }
 
     @Override
@@ -98,6 +97,11 @@ public class ClockFragment extends MvpAppCompatFragment implements ClockFragment
     }
 
     @Override
+    public void nextTurn() {
+        mChronometer.nextTurn();
+    }
+
+    @Override
     public void clockChange() {
 
     }
@@ -105,5 +109,17 @@ public class ClockFragment extends MvpAppCompatFragment implements ClockFragment
     @Override
     public void setClockInitTimer(TimeControl timeControl) {
         mChronometer.setInitState(timeControl);
+    }
+
+    public void setOnClickListn(View.OnClickListener listn) {
+        mRootView.setOnClickListener(listn);
+    }
+
+    public void setInitClickListn() {
+        setOnClickListn(mFirstClickListner);
+    }
+
+    public void setGameClickListn() {
+        setOnClickListn(mClickListener);
     }
 }
