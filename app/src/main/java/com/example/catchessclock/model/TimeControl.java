@@ -20,6 +20,8 @@ public class TimeControl {
 
     public String title;
 
+    public int primaryKey;
+
     public TimeControl ( float timeLimit, int increment, int incrementType, String title) {
         this.timeLimit = timeLimit;
         this.increment = increment;
@@ -34,5 +36,13 @@ public class TimeControl {
         this.incrementType = incrementType;
         this.turnLimit = turnLimit;
         this.title = title;
+    }
+
+    public int getPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(int primaryKey) {
+        this.primaryKey = primaryKey;
     }
 }
