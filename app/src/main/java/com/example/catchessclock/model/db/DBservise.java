@@ -145,7 +145,21 @@ public class DBservise {
         realm.commitTransaction();
         int id = model.getSelectTimingsId();
         realm.close();
+        if ( id < 0) {
+            id = 0;
+        }
         return id;
+    }
+
+    public TimeControl getCurrentTimeContr(int id) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        TaskRealModel model = realm.where(TaskRealModel.class).
+                equalTo("id",id).findFirst();
+        realm.commitTransaction();
+        TimeControl control = model.getTimeControl();
+        realm.close();
+        return control;
     }
 
     public void deleteAllData() {

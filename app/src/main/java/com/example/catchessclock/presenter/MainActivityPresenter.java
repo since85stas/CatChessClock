@@ -5,6 +5,7 @@ import android.view.View;
 
 
 import com.example.catchessclock.model.TimeControl;
+import com.example.catchessclock.model.db.DBservise;
 import com.example.catchessclock.view.MainActivityView;
 
 import moxy.InjectViewState;
@@ -15,6 +16,8 @@ public class MainActivityPresenter  extends MvpPresenter<MainActivityView> {
 
     public static final String TAG = MainActivityPresenter.class.getName();
 
+    DBservise mDBservise;
+
     public MainActivityPresenter() {
 //        getViewState().initPlayerTime(10);
     }
@@ -22,19 +25,21 @@ public class MainActivityPresenter  extends MvpPresenter<MainActivityView> {
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
-        getViewState().initMainActivity(getTimeControl(),getTimeControl());
+
         Log.d(TAG, "onFirstViewAttach: ");
     }
 
     @Override
     public void attachView(MainActivityView view) {
         super.attachView(view);
+        mDBservise = new DBservise();
+        getViewState().initMainActivity(getTimeControl(),getTimeControl());
         Log.d(TAG, "attachView: init");
     }
 
     private TimeControl getTimeControl() {
 
-        return new TimeControl(5,1,TimeControl.TYPE_FISHER, "qq");
+        return mDBservise.getCurrentTimeContr(mDBservise.getCurrentId());
     }
 
 

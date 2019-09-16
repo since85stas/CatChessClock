@@ -24,6 +24,8 @@ public class TimingsAdapter extends RecyclerView.Adapter<TimingsAdapter.TimingsV
     private List<TimeControl> data;
     LayoutInflater inflater;
 
+    RecyclerView mRecyclerView;
+
 
     public class TimingsViewHolder extends RecyclerView.ViewHolder {
 
@@ -42,11 +44,17 @@ public class TimingsAdapter extends RecyclerView.Adapter<TimingsAdapter.TimingsV
                 } else {
                     mCheckBox.setChecked(true);
                 }
+                resetSelection(getAdapterPosition());
+//                int id = getLayoutPosition();
+//                for (int i = 0; i < data.size(); i++) {
+//                    if (mCheckBox.isChecked()) {
+//                        mCheckBox.setChecked(false);
+//                    } else {
+//                        mCheckBox.setChecked(true);
+//                    }
+//                }
 
-                int id = getLayoutPosition();
-                for (int i = 0; i < data.size(); i++) {
-//                    mc
-                }
+
             });
         }
     }
@@ -54,7 +62,12 @@ public class TimingsAdapter extends RecyclerView.Adapter<TimingsAdapter.TimingsV
 
     public TimingsAdapter( List<TimeControl> data) {
         this.data = data;
+//        mRecyclerView = view;
 //        inflater = LayoutInflater.from(context);
+    }
+
+    public void setRecycler(RecyclerView view) {
+        mRecyclerView = view;
     }
 
 
@@ -82,5 +95,48 @@ public class TimingsAdapter extends RecyclerView.Adapter<TimingsAdapter.TimingsV
     }
 
 
+    private void onItemClick(int position) {
+        for (int i = 0; i < data.size(); i++) {
 
+            if (i == position) {
+
+            }
+        }
+    }
+
+
+    public TimeControl getSelectedTime() {
+
+        for (int i = 0; i < data.size(); i++) {
+            RecyclerView.ViewHolder holder = mRecyclerView.findViewHolderForAdapterPosition(i);
+            TimingsViewHolder timeHolder = (TimingsViewHolder)holder;
+            if (timeHolder.mCheckBox.isChecked() ){
+                return data.get(i);
+            }
+        }
+        return null;
+    }
+
+
+    public void resetSelection( int selPos) {
+        for (int i = 0; i < data.size(); i++) {
+            if (i != selPos) {
+                RecyclerView.ViewHolder holder = mRecyclerView.findViewHolderForAdapterPosition(i);
+                TimingsViewHolder timeHolder = (TimingsViewHolder)holder;
+                if (timeHolder.mCheckBox.isChecked() ){
+                    timeHolder.mCheckBox.setChecked(false);
+                }
+            }
+        }
+    }
+
+    public void initCheckBox(int pos) {
+        RecyclerView.ViewHolder holder = mRecyclerView.findViewHolderForAdapterPosition(pos);
+        RecyclerView.ViewHolder holder1 = mRecyclerView.findViewHolderForLayoutPosition(pos);
+        TimingsViewHolder timeHolder = (TimingsViewHolder)holder;
+        timeHolder.mCheckBox.setChecked(true);
+//        for (int i = 0; i < data.size(); i++) {
+//
+//        }
+    }
 }

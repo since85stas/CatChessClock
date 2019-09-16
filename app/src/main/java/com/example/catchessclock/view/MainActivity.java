@@ -13,8 +13,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.catchessclock.R;
 import com.example.catchessclock.interfaces.ChessClicked;
+import com.example.catchessclock.interfaces.DatabaseInterface;
 import com.example.catchessclock.model.TimeControl;
+import com.example.catchessclock.presenter.DatabasePresenter;
 import com.example.catchessclock.presenter.MainActivityPresenter;
+import com.example.catchessclock.presenter.TimingsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ import moxy.presenter.InjectPresenter;
 
 
 public class MainActivity extends MvpAppCompatActivity implements MainActivityView, ChessClicked
+
 {
     public static final String TAG = MainActivity.class.getName();
 
@@ -151,5 +155,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainActivityVi
         mClockFragment2.setInitClickListn();
     }
 
-
+//
+//    @Override
+//    public void setTimingsList(TimingsAdapter adapter) {
+//
+//    }
+//
+//    @Override
+//    public TimeControl getCurrentTiming() {
+//        return null;
+//    }
 }

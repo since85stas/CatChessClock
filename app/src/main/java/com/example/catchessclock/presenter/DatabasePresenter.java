@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.catchessclock.interfaces.DatabaseInterface;
+import com.example.catchessclock.model.TimeControl;
 import com.example.catchessclock.model.db.DBservise;
 import com.example.catchessclock.model.db.models.TaskRealModel;
 import com.example.catchessclock.view.SettingsActivityView;
@@ -31,6 +32,7 @@ public class DatabasePresenter extends MvpPresenter<DatabaseInterface> {
         super.attachView(view);
         initRealm();
         getAdapter();
+        getViewState().initCurrentCheckBox();
 //        mDBservise.saveCurrentId(3);
 //        int i = mDBservise.getCurrentId();
 //        mDBservise.addInitTimingsInDb();
@@ -72,13 +74,21 @@ public class DatabasePresenter extends MvpPresenter<DatabaseInterface> {
                 } );
     }
 
-//    private void getAllModels() {
-//        mDBservise.getAllTimings();
-//    }
+    public TimeControl getCurrentTime() {
+        return  mDBservise.getCurrentTimeContr(mDBservise.getCurrentId());
+    }
+
+    public int getCurrTimingId() {
+        return mDBservise.getCurrentId();
+    }
 
     public void getAdapter() {
         TimingsAdapter adapter = new TimingsAdapter(mDBservise.getAllTimings());
         getViewState().setTimingsList(adapter);
+    }
+
+    public void saveCurrentTiming(int pos) {
+        mDBservise.saveCurrentId(pos);
     }
 
 

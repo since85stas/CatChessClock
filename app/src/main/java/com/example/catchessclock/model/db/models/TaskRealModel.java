@@ -2,6 +2,8 @@ package com.example.catchessclock.model.db.models;
 
 import androidx.annotation.NonNull;
 
+import com.example.catchessclock.model.TimeControl;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -80,5 +82,11 @@ public class TaskRealModel extends RealmObject {
         TaskRealModel newObj = new TaskRealModel();
         newObj.setModel(title,timeLimit,increment,incrementType);
         return newObj;
+    }
+
+    public TimeControl getTimeControl() {
+        TimeControl control = new TimeControl(timeLimit,increment,incrementType,title);
+        control.setPrimaryKey((int)id);
+        return control;
     }
 }
