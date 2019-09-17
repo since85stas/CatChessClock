@@ -33,7 +33,9 @@ public class SettingsPresenter extends MvpPresenter<SettingsActivityView> {
         getViewState().startButtonPreesd();
     }
 
-
+    public void addButtonClicked() {
+        getViewState().addButtonCliked();
+    }
 
     public void log() {
         Log.d("pres", "log: ");

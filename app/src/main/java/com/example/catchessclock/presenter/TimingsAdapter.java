@@ -37,7 +37,6 @@ public class TimingsAdapter extends RecyclerView.Adapter<TimingsAdapter.TimingsV
         CheckBox mCheckBox;
 
 
-
         public TimingsViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -92,7 +91,8 @@ public class TimingsAdapter extends RecyclerView.Adapter<TimingsAdapter.TimingsV
         if (position == mInt) {
             holder.mCheckBox.setChecked(true);
         }
-        String title = data.get(position).title + " " + data.get(position).timeLimit;
+        String title = data.get(position).title + " " + data.get(position).timeLimit + " id=" +
+                data.get(position).primaryKey;
         holder.mTitleText.setText(title);
 
     }

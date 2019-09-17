@@ -13,6 +13,7 @@ import com.example.catchessclock.model.TimeControl;
 import com.example.catchessclock.presenter.DatabasePresenter;
 import com.example.catchessclock.presenter.SettingsPresenter;
 import com.example.catchessclock.presenter.TimingsAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +53,11 @@ public class SettingsActivity extends MvpAppCompatActivity implements SettingsAc
         mSettingsPresenter.startButtonClicked();
     }
 
+    @OnClick(R.id.flaotingButt)
+    void onAddClick() {
+        mSettingsPresenter.addButtonClicked();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,16 +73,28 @@ public class SettingsActivity extends MvpAppCompatActivity implements SettingsAc
         adapter.setRecycler(mRecyclerView);
         mRecyclerView.setAdapter(adapter);
 //        mAdapter.initCheckBox(mDataPresenter.getCurrTimingId());
+//        FloatingActionButton button = findViewById(R.id.);
     }
 
     @Override
     public void startButtonPreesd() {
-//        TimeControl i = mAdapter.getSelectedTime();
         mDataPresenter.saveCurrentTiming(mAdapter.getSelectedTime().primaryKey);
-//        mAdapter.initCheckBox(mDataPresenter.getCurrTimingId());
         Intent intent = new Intent(SettingsActivity.this,MainActivity.class);
         startActivity(intent);
         Log.d("sett", "startButtonPreesd: ");
     }
 
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mDataPresenter.saveCurrentTiming(mAdapter.getSelectedTime().primaryKey);
+    }
+
+    @Override
+    public void addButtonCliked() {
+        mDataPresenter.saveCurrentTiming(mAdapter.getSelectedTime().primaryKey);
+        Intent intent = new Intent(SettingsActivity.this,TimeControlActivity.class);
+        startActivity(intent);
+    }
 }
