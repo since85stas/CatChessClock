@@ -7,6 +7,6 @@ import moxy.MvpView;
 
 public interface DatabaseInterface extends MvpView {
     void setTimingsList(TimingsAdapter adapter);
-    void initCurrentCheckBox();
+//    void initCurrentCheckBox();
 //    TimeControl getCurrentTiming();
 }

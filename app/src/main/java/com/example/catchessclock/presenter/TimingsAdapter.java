@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,10 +15,9 @@ import com.example.catchessclock.R;
 import com.example.catchessclock.model.TimeControl;
 
 import java.util.List;
-import java.util.zip.Inflater;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class TimingsAdapter extends RecyclerView.Adapter<TimingsAdapter.TimingsViewHolder> {
 
@@ -26,6 +26,7 @@ public class TimingsAdapter extends RecyclerView.Adapter<TimingsAdapter.TimingsV
 
     RecyclerView mRecyclerView;
 
+    int mInt;
 
     public class TimingsViewHolder extends RecyclerView.ViewHolder {
 
@@ -35,35 +36,40 @@ public class TimingsAdapter extends RecyclerView.Adapter<TimingsAdapter.TimingsV
         @BindView(R.id.checkbox)
         CheckBox mCheckBox;
 
+
+
         public TimingsViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(onClick -> {
                 if (mCheckBox.isChecked()) {
-                    mCheckBox.setChecked(false);
+//                    mCheckBox.setChecked(false);
                 } else {
                     mCheckBox.setChecked(true);
                 }
                 resetSelection(getAdapterPosition());
-//                int id = getLayoutPosition();
-//                for (int i = 0; i < data.size(); i++) {
-//                    if (mCheckBox.isChecked()) {
-//                        mCheckBox.setChecked(false);
-//                    } else {
-//                        mCheckBox.setChecked(true);
-//                    }
-//                }
-
-
             });
+
+            mCheckBox.setClickable(false);
+
+//            mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                    if (isChecked) {
+////                        resetSelection(getAdapterPosition());
+//                    } else {
+////                        mCheckBox.setChecked(true);
+//                    }
+////                    resetSelection(getAdapterPosition());
+//                }
+//            });
         }
     }
 
 
-    public TimingsAdapter( List<TimeControl> data) {
+    public TimingsAdapter( List<TimeControl> data, int initTiming) {
         this.data = data;
-//        mRecyclerView = view;
-//        inflater = LayoutInflater.from(context);
+        mInt = initTiming;
     }
 
     public void setRecycler(RecyclerView view) {
@@ -83,6 +89,9 @@ public class TimingsAdapter extends RecyclerView.Adapter<TimingsAdapter.TimingsV
 
     @Override
     public void onBindViewHolder(@NonNull TimingsViewHolder holder, int position) {
+        if (position == mInt) {
+            holder.mCheckBox.setChecked(true);
+        }
         String title = data.get(position).title + " " + data.get(position).timeLimit;
         holder.mTitleText.setText(title);
 
@@ -130,13 +139,21 @@ public class TimingsAdapter extends RecyclerView.Adapter<TimingsAdapter.TimingsV
         }
     }
 
-    public void initCheckBox(int pos) {
-        RecyclerView.ViewHolder holder = mRecyclerView.findViewHolderForAdapterPosition(pos);
-        RecyclerView.ViewHolder holder1 = mRecyclerView.findViewHolderForLayoutPosition(pos);
-        TimingsViewHolder timeHolder = (TimingsViewHolder)holder;
-        timeHolder.mCheckBox.setChecked(true);
+//    public void initCheckBox(int pos) {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                RecyclerView.ViewHolder holder = mRecyclerView.findViewHolderForAdapterPosition(pos);
+//                RecyclerView.ViewHolder holder1 = mRecyclerView.findViewHolderForLayoutPosition(pos);
+//                TimingsViewHolder timeHolder = (TimingsViewHolder)holder;
+//                timeHolder.mCheckBox.setChecked(true);
+//                notifyDataSetChanged();
+//            }
+//        },1);
+
+
 //        for (int i = 0; i < data.size(); i++) {
 //
 //        }
-    }
+//    }
 }

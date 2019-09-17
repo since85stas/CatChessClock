@@ -32,9 +32,6 @@ public class DatabasePresenter extends MvpPresenter<DatabaseInterface> {
         super.attachView(view);
         initRealm();
         getAdapter();
-        getViewState().initCurrentCheckBox();
-//        mDBservise.saveCurrentId(3);
-//        int i = mDBservise.getCurrentId();
 //        mDBservise.addInitTimingsInDb();
         Log.d(TAG, "attachView: ");
 //        saveToDb();
@@ -83,7 +80,7 @@ public class DatabasePresenter extends MvpPresenter<DatabaseInterface> {
     }
 
     public void getAdapter() {
-        TimingsAdapter adapter = new TimingsAdapter(mDBservise.getAllTimings());
+        TimingsAdapter adapter = new TimingsAdapter(mDBservise.getAllTimings(),getCurrTimingId());
         getViewState().setTimingsList(adapter);
     }
 

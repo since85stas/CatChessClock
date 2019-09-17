@@ -43,7 +43,7 @@ public class SettingsActivity extends MvpAppCompatActivity implements SettingsAc
     @ProvidePresenter
     SettingsPresenter mSettingsPresenter () {
         SettingsPresenter presenter = new SettingsPresenter();
-        presenter.setREscycle(mRecyclerView);
+//        presenter.setREscycle(mRecyclerView);
         return presenter;
     }
 
@@ -66,28 +66,17 @@ public class SettingsActivity extends MvpAppCompatActivity implements SettingsAc
         mRecyclerView.setLayoutManager(manager);
         adapter.setRecycler(mRecyclerView);
         mRecyclerView.setAdapter(adapter);
-
-
+//        mAdapter.initCheckBox(mDataPresenter.getCurrTimingId());
     }
 
     @Override
     public void startButtonPreesd() {
 //        TimeControl i = mAdapter.getSelectedTime();
         mDataPresenter.saveCurrentTiming(mAdapter.getSelectedTime().primaryKey);
-        mAdapter.initCheckBox(mDataPresenter.getCurrTimingId());
+//        mAdapter.initCheckBox(mDataPresenter.getCurrTimingId());
         Intent intent = new Intent(SettingsActivity.this,MainActivity.class);
         startActivity(intent);
         Log.d("sett", "startButtonPreesd: ");
     }
 
-
-    @Override
-    public void initCurrentCheckBox() {
-//       mAdapter.initCheckBox(mDataPresenter.getCurrTimingId());
-    }
-
-    //    @Override
-//    public TimeControl getCurrentTiming() {
-//        return null;
-//    }
 }
