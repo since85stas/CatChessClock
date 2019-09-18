@@ -117,7 +117,6 @@ public class DBservise {
                     model.getIncrementType(),
                     model.getTitle());
             control.setPrimaryKey( (int)(model.getId()) ) ;
-
             timings.add(control);
         }
         realm.commitTransaction();
@@ -144,15 +143,28 @@ public class DBservise {
                 findFirst();
         realm.commitTransaction();
         int id = model.getSelectTimingsId();
-        realm.close();
+//        realm.close();
         if ( id < 0) {
             id = 0;
         }
+        realm.close();
         return id;
     }
 
-    public TimeControl getCurrentTimeContr(int id) {
+    public TimeControl getTimeContrById(int id) {
         Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        TaskRealModel model = realm.where(TaskRealModel.class).
+                equalTo("id",id).findFirst();
+        realm.commitTransaction();
+        TimeControl control = model.getTimeControl();
+        realm.close();
+        return control;
+    }
+
+    public TimeControl getCurrentTimeControl() {
+        Realm realm = Realm.getDefaultInstance();
+        int id = getCurrentId();
         realm.beginTransaction();
         TaskRealModel model = realm.where(TaskRealModel.class).
                 equalTo("id",id).findFirst();

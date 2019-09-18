@@ -1,7 +1,6 @@
 package com.example.catchessclock.presenter;
 
 import android.util.Log;
-import android.view.View;
 
 
 import com.example.catchessclock.model.TimeControl;
@@ -39,7 +38,7 @@ public class MainActivityPresenter  extends MvpPresenter<MainActivityView> {
 
     private TimeControl getTimeControl() {
 
-        return mDBservise.getCurrentTimeContr(mDBservise.getCurrentId());
+        return mDBservise.getTimeContrById(mDBservise.getCurrentId());
     }
 
 

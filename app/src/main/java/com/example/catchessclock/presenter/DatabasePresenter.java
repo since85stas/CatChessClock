@@ -1,18 +1,15 @@
 package com.example.catchessclock.presenter;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.example.catchessclock.interfaces.DatabaseInterface;
 import com.example.catchessclock.model.TimeControl;
 import com.example.catchessclock.model.db.DBservise;
 import com.example.catchessclock.model.db.models.TaskRealModel;
-import com.example.catchessclock.view.SettingsActivityView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.Realm;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
 
@@ -72,7 +69,7 @@ public class DatabasePresenter extends MvpPresenter<DatabaseInterface> {
     }
 
     public TimeControl getCurrentTime() {
-        return  mDBservise.getCurrentTimeContr(mDBservise.getCurrentId());
+        return  mDBservise.getTimeContrById(mDBservise.getCurrentId());
     }
 
     public int getCurrTimingId() {

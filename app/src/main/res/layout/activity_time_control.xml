@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        style="@style/TimeControlItem"
+        android:id="@+id/time_control_name"
+     />
+
+    <TextView
+        style="@style/TimeControlItem"
+        android:text="stages"
+    />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/time_control_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        style="@style/TimeControlItem"
+        android:text="increment"
+     />
+
+    <TextView
+        style="@style/TimeControlItem"
+        android:id="@+id/increament_button"
+     />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/save_button"
+        android:text="save"
+        android:textSize="28sp"
+        />
+</LinearLayout>
