@@ -18,7 +18,7 @@ public class TimeControlPresenter extends MvpPresenter<TimeControlActivityView> 
 
     DBservise mDBservise;
 
-    TimeControl initTimeControl;
+    TimeControl mTimecontrol;
 
     @Override
     public void attachView(TimeControlActivityView view) {
@@ -26,13 +26,19 @@ public class TimeControlPresenter extends MvpPresenter<TimeControlActivityView> 
         super.attachView(view);
         mDBservise = new DBservise();
         Log.d(TAG, "attachView: create");
-        initTimeControl = mDBservise.getCurrentTimeControl();
-//        initViewState(initTimeControl);
-        getViewState().setActivityState(initTimeControl);
+        mTimecontrol = mDBservise.getCurrentTimeControl();
+//        initViewState(mTimecontrol);
+        getViewState().setActivityState(mTimecontrol);
     }
 
     public void saveButtonClicked() {
         getViewState().saveButtonClicked();
+    }
+
+    public void changeIncreamnet(int minutes,int sec,int incrType) {
+        mTimecontrol.increment = minutes*60 + sec;
+        mTimecontrol.incrementType = incrType;
+        getViewState().setActivityState(mTimecontrol);
     }
 
 //    private void initViewState(TimeControl control) {

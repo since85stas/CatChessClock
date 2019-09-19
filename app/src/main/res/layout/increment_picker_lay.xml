@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        style="@style/TimeControlItemTitle"
+        android:text="Edit Time Increment"
+    />
+
+    <RadioGroup
+        android:id="@+id/icr_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <RadioButton
+            android:id="@+id/delay_radio_but_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delay"/>
+        <RadioButton
+            android:id="@+id/delay_radio_but_fisher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fisher"/>
+        <RadioButton
+            android:id="@+id/delay_radio_but_bronsh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bronshtein"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/hint_text"
+        style="@style/TimeControlItemHint" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <NumberPicker
+            android:id="@+id/min_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            >
+
+        </NumberPicker>
+
+        <NumberPicker
+            android:id="@+id/sec_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </NumberPicker>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -81,6 +81,7 @@ public class TimeControlActivity extends MvpAppCompatActivity implements TimeCon
     @Override
     public void onIncrPositButtonClick(int minutes, int sec, int incrType) {
         Log.d(TAG, "onIncrPositButtonClick: ");
+        mTimeControlPresenter.changeIncreamnet(minutes,sec,incrType);
     }
 
 
