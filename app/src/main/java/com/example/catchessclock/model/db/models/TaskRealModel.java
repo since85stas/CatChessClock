@@ -4,6 +4,11 @@ import androidx.annotation.NonNull;
 
 import com.example.catchessclock.model.TimeControl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.RealmList;
+import io.realm.RealmModel;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -16,57 +21,67 @@ public class TaskRealModel extends RealmObject {
     @PrimaryKey
     private long id;
 
-    private String title;
-
-    private float timeLimit;
-
-    private int increment;
-
-    private int incrementType;
-
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    private String title;
 
     public String getTitle() {
         return title;
     }
 
-    public void setModel(String title, float timeLimit, int increment, int incrementType) {
+    public void setTitle(String title) {
         this.title = title;
-        this.timeLimit = timeLimit;
-        this.increment = increment;
-        this.incrementType = incrementType;
     }
 
-    public float getTimeLimit() {
-        return timeLimit;
+//    public RealmList<TimeStageModel> mStageList;
+
+    public TaskRealModel() {
+
+//        mStageList = new RealmList<TimeStageModel>();
     }
 
-    public int getIncrement() {
-        return increment;
+
+
+    public void addStage( int timeLimit, int increment, int incrementType) {
+        TimeStageModel model = new TimeStageModel();
+        model.setModel(timeLimit,increment,incrementType);
     }
 
-    public int getIncrementType() {
-        return incrementType;
-    }
+//    public void addStages (List<TimeControl.TimeStage> stages) {
+//        for (int i = 0; i < stages.size(); i++) {
+//            TimeStageModel timeStageModel = new TimeStageModel();
+//            timeStageModel.setModel(
+//                    stages.get(i).timeLimit,
+//                    stages.get(i).increment,
+//                    stages.get(i).incrementType);
+//            mStageList.add(timeStageModel);
+//        }
+//    }
+//
+//    public void addStagesModel(List<TimeStageModel> model) {
+//        for (int i = 0; i < model.size(); i++) {
+//            mStageList.add(model.get(i));
+//        }
+//    }
 
-    public void setTimeLimit(float timeLimit) {
-        this.timeLimit = timeLimit;
-    }
+//    public void addStage(int timeLimit, int increment, int incrementType, int turnLimit, String title) {
+//        TimeControl.TimeStage stage = new TimeControl.TimeStage( timeLimit, increment, incrementType, turnLimit,title);
+//        mStageList.add(stage);
+//    }
+//
+//    public void addStage(int timeLimit, int increment, int incrementType, String title) {
+//        TimeControl.TimeStage stage = new TimeControl.TimeStage( timeLimit, increment, incrementType,title);
+//        mStageList.add(stage);
+//    }
 
-    public void setIncrement(int increment) {
-        this.increment = increment;
-    }
 
-    public void setIncrementType(int incrementType) {
-        this.incrementType = incrementType;
-    }
+
 
 //    @Override
 //    public boolean equals(Object obj) {
@@ -76,17 +91,25 @@ public class TaskRealModel extends RealmObject {
 //    }
 
 
-    @NonNull
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        TaskRealModel newObj = new TaskRealModel();
-        newObj.setModel(title,timeLimit,increment,incrementType);
-        return newObj;
-    }
-
-    public TimeControl getTimeControl() {
-        TimeControl control = new TimeControl(timeLimit,increment,incrementType,title);
-        control.setPrimaryKey((int)id);
-        return control;
-    }
+//    @NonNull
+//    @Override
+//    protected Object clone() throws CloneNotSupportedException {
+//        TaskRealModel newObj = new TaskRealModel();
+//        newObj.setId(id);
+//        newObj.addStagesModel(mStageList);
+//        return newObj;
+//    }
+//
+//    public TimeControl getTimeControl() {
+//        TimeControl control = new TimeControl(title);
+//        control.setPrimaryKey((int)id);
+//        for (int i = 0; i < mStageList.size(); i++) {
+//            control.addStage(
+//                    mStageList.get(i).getTimeLimit(),
+//                    mStageList.get(i).getIncrement(),
+//                    mStageList.get(i).getIncrementType()
+//            );
+//        }
+//        return control;
+//    }
 }

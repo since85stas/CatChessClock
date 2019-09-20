@@ -29,6 +29,8 @@ public class DatabasePresenter extends MvpPresenter<DatabaseInterface> {
         super.attachView(view);
         initRealm();
         getAdapter();
+//        mDBservise.deleteAllData();
+        mDBservise.addInitTimingsInDb();
 //        mDBservise.addInitTimingsInDb();
         Log.d(TAG, "attachView: ");
 //        saveToDb();
@@ -42,19 +44,19 @@ public class DatabasePresenter extends MvpPresenter<DatabaseInterface> {
         Log.d(TAG, "initRealm: ");
     }
 
-    private void saveToDb() {
-        TaskRealModel model = new TaskRealModel();
-        model.setModel("1",3,1,0);
-        mDBservise.save(model,TaskRealModel.class);
-        Log.d(TAG, "saveRealm: ");
-    }
-
-    private void saveToDbRx() {
-        TaskRealModel model = new TaskRealModel();
-        model.setModel("1",3,1,0);
-        mDBservise.saveRx(model,TaskRealModel.class);
-        Log.d(TAG, "saveRealm: ");
-    }
+//    private void saveToDb() {
+//        TaskRealModel model = new TaskRealModel();
+//        model.setModel("1",3,1,0);
+//        mDBservise.save(model,TaskRealModel.class);
+//        Log.d(TAG, "saveRealm: ");
+//    }
+//
+//    private void saveToDbRx() {
+//        TaskRealModel model = new TaskRealModel();
+//        model.setModel("1",3,1,0);
+//        mDBservise.saveRx(model,TaskRealModel.class);
+//        Log.d(TAG, "saveRealm: ");
+//    }
 
 
     private void getAllModelsRx() {

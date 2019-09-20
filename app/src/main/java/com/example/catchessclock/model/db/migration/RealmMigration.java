@@ -12,7 +12,7 @@ public class RealmMigration implements io.realm.RealmMigration  {
     public void migrate(DynamicRealm realm, long oldVersion, long newVersion) {
         RealmSchema schema = realm.getSchema();
 
-        if (oldVersion == 0) {
+        if (oldVersion != newVersion) {
             schema.create("TaskRealmModel")
                     .addField("title",String.class);
 

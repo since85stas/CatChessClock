@@ -36,8 +36,8 @@ public class TimeControlPresenter extends MvpPresenter<TimeControlActivityView> 
     }
 
     public void changeIncreamnet(int minutes,int sec,int incrType) {
-        mTimecontrol.increment = minutes*60 + sec;
-        mTimecontrol.incrementType = incrType;
+        mTimecontrol.getTimeStage().increment = minutes*60 + sec;
+        mTimecontrol.getTimeStage().incrementType = incrType;
         getViewState().setActivityState(mTimecontrol);
     }
 

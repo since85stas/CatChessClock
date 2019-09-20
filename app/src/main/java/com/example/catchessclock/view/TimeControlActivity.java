@@ -59,7 +59,8 @@ public class TimeControlActivity extends MvpAppCompatActivity implements TimeCon
     @Override
     public void setActivityState(TimeControl control) {
         mEditText.setText(control.title);
-        mIncrTextView.setText(control.increment +" " + control.incrementType);
+        mIncrTextView.setText(control.getTimeStage().increment +" " +
+                control.getTimeStage().incrementType);
     }
 
     @Override

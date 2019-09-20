@@ -14,5 +14,6 @@ public class MyApplication extends Application {
         Realm.init(this);
 //        Realm.deleteRealm(DBservise.mConfig);
         Realm.setDefaultConfiguration(DBservise.mConfig);
+
     }
 }

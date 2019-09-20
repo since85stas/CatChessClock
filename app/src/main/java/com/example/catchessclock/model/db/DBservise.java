@@ -7,6 +7,7 @@ import com.example.catchessclock.model.TimeControl;
 import com.example.catchessclock.model.db.migration.RealmMigration;
 import com.example.catchessclock.model.db.models.CurrentTimingsModel;
 import com.example.catchessclock.model.db.models.TaskRealModel;
+import com.example.catchessclock.model.db.models.TimeStageModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,36 +28,18 @@ public class DBservise {
     public static final String TAG = DBservise.class.getName();
 
 
-    public static RealmConfiguration mConfig = new RealmConfiguration.Builder()
-            .schemaVersion(1)
+    public static RealmConfiguration mConfig = new RealmConfiguration.Builder().
+            initialData(realm -> {
+        TaskRealModel model = new TaskRealModel();
+        model.setTitle("init");
+        model.addStage(10,10,0);
+        realm.copyToRealm(model);
+    })
+            .schemaVersion(2)
             .migration(new RealmMigration() {
-            })
+            }).deleteRealmIfMigrationNeeded()
             .build();
 
-
-    public <T extends RealmObject> Observable<T> saveRx(T object, Class<T> clazz) {
-        Realm realm = Realm.getDefaultInstance();
-
-        long id;
-
-        try {
-            id = realm.where(clazz).max("id").intValue() + 1;
-        } catch (Exception e) {
-            id = 0L;
-        }
-
-        ((TaskRealModel) object).setId(id);
-
-        return Observable.just(object)
-                .flatMap(t -> Observable.just(t)
-                        .doOnSubscribe(realm::beginTransaction)
-                        .doOnUnsubscribe(() -> {
-                            realm.commitTransaction();
-                            realm.close();
-                        })
-                        .doOnNext(realm::copyToRealm)
-                );
-    }
 
 
     public <T extends RealmObject> Observable<List<T>> getAllRx(Class<T> clazz) {
@@ -91,10 +74,16 @@ public class DBservise {
         realm.beginTransaction();
 //        realm.create
         TaskRealModel obj = realm.createObject(TaskRealModel.class,object.getId());
-        obj.setModel(object.getTitle(),
-                object.getTimeLimit(),
-                object.getIncrement(),
-                object.getIncrementType());
+//        obj.setModel(object.getTitle(),
+//                object.getTimeLimit(),
+//                object.getIncrement(),
+//                object.getIncrementType());
+        List<TimeStageModel> models = new ArrayList<>();
+        for (int i = 0; i < object.mStageList.size(); i++) {
+            models.add(object.mStageList.get(i));
+        }
+//        models.add(object.mStageList);
+        obj.addStagesModel(models);
 //        obj.setId(id);
 //        obj.setId(object.getId());
         realm.commitTransaction();
@@ -110,15 +99,15 @@ public class DBservise {
         realm.beginTransaction();
         RealmResults<TaskRealModel> results = realm.where(TaskRealModel.class).findAll();
         List<TimeControl> timings = new ArrayList<>();
-        for (TaskRealModel model: results
-             ) {
-            TimeControl control = new TimeControl(model.getTimeLimit(),
-                    model.getIncrement(),
-                    model.getIncrementType(),
-                    model.getTitle());
-            control.setPrimaryKey( (int)(model.getId()) ) ;
-            timings.add(control);
-        }
+//        for (TaskRealModel model: results
+//             ) {
+//            TimeControl control = new TimeControl(model.getTimeLimit(),
+//                    model.getIncrement(),
+//                    model.getIncrementType(),
+//                    model.getTitle());
+//            control.setPrimaryKey( (int)(model.getId()) ) ;
+//            timings.add(control);
+//        }
         realm.commitTransaction();
         Log.d(TAG, "getAllTimings: ");
         realm.close();
@@ -142,7 +131,12 @@ public class DBservise {
                 equalTo("id",CurrentTimingsModel.ID).
                 findFirst();
         realm.commitTransaction();
-        int id = model.getSelectTimingsId();
+        int id;
+        try {
+            id = model.getSelectTimingsId();
+        } catch (NullPointerException e) {
+            id = 0;
+        }
 //        realm.close();
         if ( id < 0) {
             id = 0;
@@ -183,21 +177,21 @@ public class DBservise {
     }
 
     public void addInitTimingsInDb() {
-        TaskRealModel model = new TaskRealModel();
-        model.setModel("name",1.f,1,0);
-        save(model,TaskRealModel.class);
-
-        model = new TaskRealModel();
-        model.setModel("name",2.f,1,0);
-        save(model,TaskRealModel.class);
-
-        model = new TaskRealModel();
-        model.setModel("name",3.f,1,0);
-        save(model,TaskRealModel.class);
-
-        model = new TaskRealModel();
-        model.setModel("name",4.f,1,0);
-        save(model,TaskRealModel.class);
+//        TaskRealModel model = new TaskRealModel();
+//        model.addStage("name",10,1,0);
+//        save(model,TaskRealModel.class);
+//
+//        model = new TaskRealModel();
+//        model.addStage("name",20,1,0);
+//        save(model,TaskRealModel.class);
+//
+//        model = new TaskRealModel();
+//        model.addStage("name",30,1,0);
+//        save(model,TaskRealModel.class);
+//
+//        model = new TaskRealModel();
+//        model.addStage("name",40,1,0);
+//        save(model,TaskRealModel.class);
     }
 
 }

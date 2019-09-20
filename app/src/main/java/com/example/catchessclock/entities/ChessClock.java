@@ -38,9 +38,9 @@ public class ChessClock extends Chronometer {
 
 
     public void setInitState(TimeControl timeControl) {
-        this.mTimeLimit = (long)(timeControl.timeLimit * 60 * 1000);
-        mIncrement = timeControl.increment * 1000;
-        mIncrType  = timeControl.incrementType;
+        this.mTimeLimit = (long)(timeControl.getTimeStage().timeLimit * 1000);
+        mIncrement = timeControl.getTimeStage().increment * 1000;
+        mIncrType  = timeControl.getTimeStage().incrementType;
         setCountDown(true);
         mStartTime = SystemClock.elapsedRealtime() + mTimeLimit;
         setBase(mStartTime);

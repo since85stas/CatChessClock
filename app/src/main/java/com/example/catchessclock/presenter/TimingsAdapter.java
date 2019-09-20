@@ -91,7 +91,8 @@ public class TimingsAdapter extends RecyclerView.Adapter<TimingsAdapter.TimingsV
         if (position == mInt) {
             holder.mCheckBox.setChecked(true);
         }
-        String title = data.get(position).title + " " + data.get(position).timeLimit + " id=" +
+        String title = data.get(position).title + " " +
+                data.get(position).getTimeStage().timeLimit + " id=" +
                 data.get(position).primaryKey;
         holder.mTitleText.setText(title);
 

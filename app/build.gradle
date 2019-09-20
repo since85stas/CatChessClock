@@ -65,4 +65,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     implementation 'com.google.android.material:material:1.0.0'
+
+    //realm
+    implementation 'io.realm:realm-annotations-processor:5.14.0'
 }
