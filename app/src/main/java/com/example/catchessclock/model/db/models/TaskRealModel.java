@@ -48,10 +48,10 @@ public class TaskRealModel extends RealmObject {
 
 
 
-    public void addStage( int timeLimit, int increment, int incrementType) {
-        TimeStageModel model = new TimeStageModel();
-        model.setModel(timeLimit,increment,incrementType);
-    }
+//    public void addStage( int timeLimit, int increment, int incrementType) {
+//        TimeStageModel model = new TimeStageModel();
+//        model.setModel(timeLimit,increment,incrementType);
+//    }
 
 //    public void addStages (List<TimeControl.TimeStage> stages) {
 //        for (int i = 0; i < stages.size(); i++) {
@@ -100,16 +100,9 @@ public class TaskRealModel extends RealmObject {
 //        return newObj;
 //    }
 //
-//    public TimeControl getTimeControl() {
-//        TimeControl control = new TimeControl(title);
-//        control.setPrimaryKey((int)id);
-//        for (int i = 0; i < mStageList.size(); i++) {
-//            control.addStage(
-//                    mStageList.get(i).getTimeLimit(),
-//                    mStageList.get(i).getIncrement(),
-//                    mStageList.get(i).getIncrementType()
-//            );
-//        }
-//        return control;
-//    }
+    public TimeControl getTimeControl() {
+        TimeControl control = new TimeControl(title);
+        control.setPrimaryKey((int)id);
+        return control;
+    }
 }

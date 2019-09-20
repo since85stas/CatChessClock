@@ -40,9 +40,9 @@ public class MainActivityPresenter  extends MvpPresenter<MainActivityView> {
 
 //        return mDBservise.getTimeContrById(mDBservise.getCurrentId());
         TimeControl controlDb = mDBservise.getCurrentTimeControl();
-        TimeControl control = new TimeControl("11");
-        control.addStage(10,1,-1);
-        return control;
+//        TimeControl control = new TimeControl("11");
+//        control.addStage(10,1,-1);
+        return controlDb;
     }
 
 
