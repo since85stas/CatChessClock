@@ -31,6 +31,9 @@ public class IncrementPickerDialog extends DialogFragment {
     @BindView(R.id.icr_radio_group)
     RadioGroup mRadioGroup;
 
+    @BindView((R.id.hours_picker))
+    NumberPicker mHoursPicker;
+
     public interface IncrementPickerListner {
         void onIncrPositButtonClick(int minutes, int seconds , int incrType);
     }
@@ -66,6 +69,7 @@ public class IncrementPickerDialog extends DialogFragment {
                         IncrementPickerDialog.this.getDialog().cancel();
                     }
                 });
+        mHoursPicker.setVisibility(View.GONE);
         mMinutePicker.setMinValue(0);
         mMinutePicker.setMaxValue(10);
         mSecPicker.setMinValue(0);

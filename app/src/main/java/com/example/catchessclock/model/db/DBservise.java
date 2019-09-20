@@ -103,6 +103,34 @@ public class DBservise {
         return true;
     }
 
+    public boolean save(TimeControl control) {
+        Realm realm = Realm.getDefaultInstance();
+        long id;
+
+        realm.beginTransaction();
+        try {
+            id = realm.where(TaskRealModel.class).max("id").intValue() + 1;
+        } catch (Exception e) {
+            id = 0L;
+        }
+        TaskRealModel model = new TaskRealModel();
+        model.setId(id);
+        model.setTitle(control.title);
+        realm.copyToRealm(model);
+        for (TimeControl.TimeStage stage: control.mStageList
+             ) {
+            TimeStageModel stageModel = new TimeStageModel(id);
+            stageModel.setModel(stage.timeLimit,
+                    stage.increment,
+                    stage.incrementType,
+                    stage.turnLimit);
+            realm.copyToRealm(stageModel);
+        }
+        realm.commitTransaction();
+        realm.close();
+        return true;
+    }
+
 
     public List<TimeControl> getAllTimings() {
         Realm realm = Realm.getDefaultInstance();

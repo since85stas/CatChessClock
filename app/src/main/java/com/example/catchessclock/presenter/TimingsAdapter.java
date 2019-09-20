@@ -81,7 +81,6 @@ public class TimingsAdapter extends RecyclerView.Adapter<TimingsAdapter.TimingsV
     public TimingsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.timigs_item,parent,false);
         TimingsViewHolder holder = new TimingsViewHolder(view);
-
         return holder;
     }
 

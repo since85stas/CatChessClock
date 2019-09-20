@@ -10,9 +10,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.catchessclock.R;
 import com.example.catchessclock.model.TimeControl;
 import com.example.catchessclock.presenter.TimeControlPresenter;
+import com.example.catchessclock.presenter.TimingsSelectAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,7 +26,7 @@ import moxy.presenter.InjectPresenter;
 
 
 public class TimeControlActivity extends MvpAppCompatActivity implements TimeControlActivityView, 
-        IncrementPickerDialog.IncrementPickerListner
+        IncrementPickerDialog.IncrementPickerListner, StagePickerDialog.StagePickerListner
 {
     public static final String TAG = TimeControlActivity.class.getName();
 
@@ -47,6 +51,9 @@ public class TimeControlActivity extends MvpAppCompatActivity implements TimeCon
         dialog.show(getSupportFragmentManager(),"incremDialog");
 //        dialog.show();
     }
+
+    @BindView(R.id.time_control_recycle)
+    RecyclerView mRecyclerView;
 
 
     @Override
@@ -85,5 +92,15 @@ public class TimeControlActivity extends MvpAppCompatActivity implements TimeCon
         mTimeControlPresenter.changeIncreamnet(minutes,sec,incrType);
     }
 
+    @Override
+    public void getStageTimes(int hours, int minutes, int sec) {
 
+    }
+
+    @Override
+    public void setTimingsSelectList(TimingsSelectAdapter adapter) {
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setAdapter(adapter);
+    }
 }

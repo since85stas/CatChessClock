@@ -29,9 +29,11 @@ public class TimeControlPresenter extends MvpPresenter<TimeControlActivityView> 
         mTimecontrol = mDBservise.getCurrentTimeControl();
 //        initViewState(mTimecontrol);
         getViewState().setActivityState(mTimecontrol);
+        getAdapter();
     }
 
     public void saveButtonClicked() {
+        mDBservise.save(mTimecontrol);
         getViewState().saveButtonClicked();
     }
 
@@ -39,6 +41,11 @@ public class TimeControlPresenter extends MvpPresenter<TimeControlActivityView> 
         mTimecontrol.getTimeStage().increment = minutes*60 + sec;
         mTimecontrol.getTimeStage().incrementType = incrType;
         getViewState().setActivityState(mTimecontrol);
+    }
+
+    public void getAdapter() {
+        TimingsSelectAdapter adapter = new TimingsSelectAdapter(mTimecontrol.mStageList);
+        getViewState().setTimingsSelectList(adapter);
     }
 
 //    private void initViewState(TimeControl control) {
