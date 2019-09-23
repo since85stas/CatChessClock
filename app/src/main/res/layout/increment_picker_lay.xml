@@ -47,6 +47,27 @@
         style="@style/TimeControlItemHint" />
 
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/number_turns_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/TimeControlItemTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Turn limit"
+            />
+
+        <EditText
+            style="@style/TimeControlItem"
+            android:id="@+id/number_turns_edit"
+            android:inputType="number"
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

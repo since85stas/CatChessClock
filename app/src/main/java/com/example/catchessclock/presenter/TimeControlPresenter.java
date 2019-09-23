@@ -43,10 +43,28 @@ public class TimeControlPresenter extends MvpPresenter<TimeControlActivityView> 
         getViewState().setActivityState(mTimecontrol);
     }
 
+    public void addTimeStage(int hours, int min , int sec, int turnLimit) {
+        int time = hours*3600 + min*60 + sec;
+        mTimecontrol.addTimeStageByTimelimitAndTurnLimit(time,turnLimit);
+        getAdapter();
+    }
+
     public void getAdapter() {
         TimingsSelectAdapter adapter = new TimingsSelectAdapter(mTimecontrol.mStageList);
         getViewState().setTimingsSelectList(adapter);
     }
+
+    public void redactionTimeStage(int hours, int minutes, int sec, int turnLimit, int stagePos) {
+        int time = hours*3600 + minutes*60 + sec;
+        mTimecontrol.mStageList.get(stagePos).timeLimit = time;
+        mTimecontrol.mStageList.get(stagePos).turnLimit = turnLimit;
+        getAdapter();
+    }
+
+//    public void addStageClicked() {
+//
+//        getViewState().addTimeStage();
+//    }
 
 //    private void initViewState(TimeControl control) {
 //        mActivityView.m

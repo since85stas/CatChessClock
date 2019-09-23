@@ -5,15 +5,18 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.catchessclock.R;
+import com.example.catchessclock.interfaces.OnItemClickListner;
 import com.example.catchessclock.model.TimeControl;
 import com.example.catchessclock.presenter.TimeControlPresenter;
 import com.example.catchessclock.presenter.TimingsSelectAdapter;
@@ -26,7 +29,7 @@ import moxy.presenter.InjectPresenter;
 
 
 public class TimeControlActivity extends MvpAppCompatActivity implements TimeControlActivityView, 
-        IncrementPickerDialog.IncrementPickerListner, StagePickerDialog.StagePickerListner
+        IncrementPickerDialog.IncrementPickerListner, OnItemClickListner, StagePickerDialog.StagePickerListner
 {
     public static final String TAG = TimeControlActivity.class.getName();
 
@@ -46,10 +49,16 @@ public class TimeControlActivity extends MvpAppCompatActivity implements TimeCon
 
     @OnClick(R.id.increament_button)
     void onIncrementClick() {
-//        TimePickerDialog dialog = new TimePickerDialog(this,this,1,1,true);n
         IncrementPickerDialog dialog = new IncrementPickerDialog();
         dialog.show(getSupportFragmentManager(),"incremDialog");
 //        dialog.show();
+    }
+
+    @OnClick(R.id.add_stage_button)
+    void addStageClicked() {
+//        mTimeControlPresenter.addStageClicked();
+        StagePickerDialog dialog = new StagePickerDialog(false,0);
+        dialog.show(getSupportFragmentManager(),"stagedialog");
     }
 
     @BindView(R.id.time_control_recycle)
@@ -93,14 +102,31 @@ public class TimeControlActivity extends MvpAppCompatActivity implements TimeCon
     }
 
     @Override
-    public void getStageTimes(int hours, int minutes, int sec) {
-
-    }
-
-    @Override
     public void setTimingsSelectList(TimingsSelectAdapter adapter) {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(adapter);
+//        mRecyclerView.setOnClickListener(this);
+//        mRecyclerView.setonc
     }
+
+    @Override
+    public void redactionStageTimesClicked(int timeLimit, int turnLimit, int stagePos) {
+//        mTimeControlPresenter.redactionTimeStage(hours,minutes,sec,turnLimit,stagePos);
+        StagePickerDialog dialog = new StagePickerDialog(true,stagePos);
+        dialog.show(getSupportFragmentManager(),"redDialog");
+        dialog.initPickersValues(timeLimit,turnLimit);
+        Log.d(TAG, "redactionStageTimesClicked: ");
+    }
+
+    @Override
+    public void getStageTimes(int hours, int minutes, int sec, int turnLimit, boolean isRedact, int pos) {
+        if (!isRedact) {
+            mTimeControlPresenter.addTimeStage(hours, minutes, sec, turnLimit);
+        } else {
+            mTimeControlPresenter.redactionTimeStage(hours,minutes,sec,turnLimit,pos);
+        }
+    }
+
+
 }

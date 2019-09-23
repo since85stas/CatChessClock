@@ -15,4 +15,6 @@ public interface TimeControlActivityView extends MvpView {
     void setActivityState(TimeControl control);
 
     void setTimingsSelectList(TimingsSelectAdapter adapter);
+
+//    void addTimeStage();
 }

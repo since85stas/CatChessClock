@@ -27,6 +27,16 @@ public class TimeControl {
         mStageList.add(stage);
     }
 
+    public void addTimeStageByTimelimitAndTurnLimit(int timelimit ,int turnsLimit) {
+        if (mStageList.size() != 0) {
+            TimeStage stage = new TimeStage(timelimit,
+                    mStageList.get(0).increment,
+                    mStageList.get(0).incrementType,
+                    turnsLimit);
+            mStageList.add(stage);
+        }
+    }
+
     public void addStage(int timeLimit, int increment, int incrementType) {
         TimeStage stage = new TimeStage( timeLimit, increment, incrementType);
         mStageList.add(stage);

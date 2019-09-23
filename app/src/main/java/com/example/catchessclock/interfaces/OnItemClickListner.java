@@ -4,6 +4,7 @@ public interface OnItemClickListner  {
 
 
 
-    void onItemClick ();
+//    void onItemClick ();
+    void redactionStageTimesClicked(int timeLimit, int turnLimit, int stagePos);
 
 }
