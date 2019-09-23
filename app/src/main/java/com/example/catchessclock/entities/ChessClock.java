@@ -10,32 +10,46 @@ import com.example.catchessclock.model.TimeControl;
 
 public class ChessClock extends Chronometer {
 
+    public interface ChessClockInterface {
+        public void finishTimer(String tag);
+    }
+
     //    public ChessClock (){};
     public static final String TAG = ChessClock.class.getName();
 
+    public String mFragmTag;
+
     public boolean mIsRunning;
 
-    int mIncrType;
+    public int mIncrType;
 
-    long mStartTime;
+    public long mStartTime;
 
-    long mTimeLimit;
+    public long mTimeLimit;
 
-    int mIncrement;
+    public int mIncrement;
+
+    public ChessClockInterface mFinishListner;
 
 
     public ChessClock(Context context) {
         super(context);
+        mFinishListner = (ChessClockInterface)context;
     }
 
     public ChessClock(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mFinishListner = (ChessClockInterface)context;
     }
 
     public ChessClock(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        mFinishListner = (ChessClockInterface)context;
     }
 
+    public void setTag(String tag) {
+        mFragmTag = tag;
+    }
 
     public void setInitState(TimeControl timeControl) {
         this.mTimeLimit = (long)(timeControl.getTimeStage().timeLimit * 1000);
@@ -54,6 +68,11 @@ public class ChessClock extends Chronometer {
         initTickListner();
         start();
     }
+
+//    @Override
+//    public void setOnChronometerTickListener(OnChronometerTickListener listener) {
+//        super.setOnChronometerTickListener(listener);
+//    }
 
     public void addIncrement() {
         if (mIncrement != 0) {
@@ -96,8 +115,13 @@ public class ChessClock extends Chronometer {
             mTimeLimit = mStartTime - SystemClock.elapsedRealtime();
             if (mTimeLimit < 0) {
                 Log.d(TAG, "startTimer: stop");
+                mFinishListner.finishTimer(mFragmTag);
             }
         });
+    }
+
+    public void changeDrawState() {
+
     }
 
 }

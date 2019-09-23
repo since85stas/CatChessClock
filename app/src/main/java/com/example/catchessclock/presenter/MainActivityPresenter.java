@@ -17,6 +17,8 @@ public class MainActivityPresenter  extends MvpPresenter<MainActivityView> {
 
     DBservise mDBservise;
 
+
+
     public MainActivityPresenter() {
 //        getViewState().initPlayerTime(10);
     }
@@ -24,15 +26,15 @@ public class MainActivityPresenter  extends MvpPresenter<MainActivityView> {
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
-
+        mDBservise = new DBservise();
+        getViewState().initMainActivity(getTimeControl(),getTimeControl());
         Log.d(TAG, "onFirstViewAttach: ");
     }
 
     @Override
     public void attachView(MainActivityView view) {
         super.attachView(view);
-        mDBservise = new DBservise();
-        getViewState().initMainActivity(getTimeControl(),getTimeControl());
+
         Log.d(TAG, "attachView: init");
     }
 
@@ -45,5 +47,8 @@ public class MainActivityPresenter  extends MvpPresenter<MainActivityView> {
         return controlDb;
     }
 
-
+    public void timeIsOut(String fragmTag){
+        getViewState().pauseButtonClick();
+        getViewState().timeIsOut(fragmTag);
+    }
 }

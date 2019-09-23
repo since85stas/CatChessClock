@@ -1,6 +1,7 @@
 package com.example.catchessclock.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import com.example.catchessclock.presenter.ClockFragmentPresenter;
 import moxy.MvpAppCompatFragment;
 import moxy.presenter.InjectPresenter;
 
-public class ClockFragment extends MvpAppCompatFragment implements ClockFragmentView {
+public class ClockFragment extends MvpAppCompatFragment implements ClockFragmentView  {
 
     public String mTag;
 
@@ -49,6 +50,15 @@ public class ClockFragment extends MvpAppCompatFragment implements ClockFragment
         this.clickedInterface = clickedInterface;
     }
 
+//    @Override
+//    public void finish() {
+//        Log.d("clockFrag", "finish: ");
+//    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Nullable
     @Override
@@ -56,6 +66,7 @@ public class ClockFragment extends MvpAppCompatFragment implements ClockFragment
 
         mRootView = inflater.inflate(R.layout.clock_layout, container, false);
         mChronometer = mRootView.findViewById(R.id.time_box);
+        mChronometer.setTag(mTag);
         setClockInitTimer(mTimeControl);
         setInterface(clickedInterface);
 
@@ -121,5 +132,24 @@ public class ClockFragment extends MvpAppCompatFragment implements ClockFragment
 
     public void setGameClickListn() {
         setOnClickListn(mClickListener);
+    }
+
+    @Override
+    public void changeTextViewBackground() {
+        if (mChronometer.mIsRunning) {
+            mChronometer.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        } else {
+            mChronometer.setBackgroundColor(getResources().getColor(R.color.design_default_color_primary_dark));
+        }
+    }
+
+    @Override
+    public void setDefaultTextViewBackground() {
+        mChronometer.setBackgroundColor(getResources().getColor(R.color.design_default_color_primary_dark));
+    }
+
+    @Override
+    public void setLooseBackgroundState() {
+        mChronometer.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
     }
 }

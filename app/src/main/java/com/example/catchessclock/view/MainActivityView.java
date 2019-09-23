@@ -13,6 +13,8 @@ public interface MainActivityView extends MvpView {
 
     void pauseButtonClick();
 
+    void timeIsOut(String losePlayerTag);
+
 
 //    public void loadClockFragm(TimeControl control);
 }

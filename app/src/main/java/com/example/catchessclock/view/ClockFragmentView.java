@@ -18,4 +18,9 @@ public interface ClockFragmentView extends MvpView {
 
     void nextTurn();
 
+    void changeTextViewBackground();
+
+    void setDefaultTextViewBackground();
+
+    void setLooseBackgroundState();
 }
